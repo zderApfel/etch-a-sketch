@@ -50,10 +50,11 @@ function clearGrid(){
 function changeColor(){
     let cells = document.querySelectorAll(".grid-cell");
     let color = prompt("Enter a new color name/code. NOTE: Will default to white if invalid", "black");
-    while (color.includes(" ") == true){
+    while (color.includes(" ") == true){ //This is so it can accept spaces in colors with more than one word "i.e. dark red"
         color = color.replace(" ", "");
         console.log("Removed a space!");
     }
+    color = color.toLowerCase();
     for (i = 0; i < cells.length; i++){
         fill(cells[i], color);
     }
