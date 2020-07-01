@@ -15,23 +15,50 @@ Optional) Add an option that picks a random color every time you hover
 */
 
 const ART_GRID = document.getElementById("art-grid");
+const CLEAR_BUTTON = document.getElementById("clear-button");
+const COLOR_BUTTON = document.getElementById("random-color");
+CLEAR_BUTTON.addEventListener("click", function(){formGrid(clearGrid())});
+COLOR_BUTTON.addEventListener("click", function(){changeColor()});
 
 formGrid(16);
 
 function formGrid(param){
-    //repeat area times
-    let area = param*param;
-    ART_GRID.style.cssText = `grid-template-columns: 1fr repeat(${param-1}, 1fr); grid-template-rows: 1fr repeat(${param-1}, 1fr);`
-    for (i = 1; i <= area; i++){
+    while (ART_GRID.firstChild){ //clears any existing cells
+        ART_GRID.removeChild(ART_GRID.firstChild);
+    }
+    let area = param*param; //sets the area of the grid
+
+    ART_GRID.style.cssText = `grid-template-columns: 1fr repeat(${param-1}, 1fr); grid-template-rows: 1fr repeat(${param-1}, 1fr);`;
+    
+    for (i = 1; i <= area; i++){ //adds cells
         let cell = document.createElement("div");
         ART_GRID.appendChild(cell);
-        cell.style.cssText = `width: ${600/param}; height: ${600/param}`;
+        cell.style.cssText = `width: ${600/param}; height: ${600/param};`;
         cell.classList.add("grid-cell");
-        changeColor(cell);
-
+        fill(cell, "black"); //This is what adds the mouse hover event to the cell, with the default color being black
     }
 }
 
-function changeColor(cell){ //Changes the color of the cell
-    return cell.addEventListener("mouseover", function(){cell.style.cssText = "background-color: black;"});
+function clearGrid(){
+    let newSize = prompt("Would you like to adjust the fineness of the pen? (Min. 16, Max 100)", 16);
+    while (parseInt(newSize) < 16 || parseInt(newSize) > 100){
+        newSize = prompt("Sorry, that number is out of range. Please enter a number between 16 and 100");
+    }
+    return newSize;
+}
+
+function changeColor(){
+    let cells = document.querySelectorAll(".grid-cell");
+    let color = prompt("Enter a new color name/code. NOTE: Will default to white if invalid", "black");
+    while (color.includes(" ") == true){
+        color = color.replace(" ", "");
+        console.log("Removed a space!");
+    }
+    for (i = 0; i < cells.length; i++){
+        fill(cells[i], color);
+    }
+}
+
+function fill(cell, color){ //Adds mouse hover event that changes the color of the cell
+    return cell.addEventListener("mouseover", function(){cell.style.cssText = `background-color: ${color};`});
 }
