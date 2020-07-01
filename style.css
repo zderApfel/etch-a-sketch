@@ -14,8 +14,14 @@ button{
 
 
 #button-container{
-    margin-top: 2%;
     margin-bottom: 10px;
+}
+
+#change-color{
+    height: 25px;
+    width: 25px;
+    border-color: darkred;
+    margin-top: 10px;
 }
 
 #container{
@@ -23,7 +29,7 @@ button{
 }
 
 #drawing-board {
-    display: inline-block;
+    display: inline-grid;
     background-color: white;
     border-color: red;
     border-style: groove;

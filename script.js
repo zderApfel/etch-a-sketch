@@ -16,7 +16,7 @@ Optional) Add an option that picks a random color every time you hover
 
 const ART_GRID = document.getElementById("art-grid");
 const CLEAR_BUTTON = document.getElementById("clear-button");
-const COLOR_BUTTON = document.getElementById("random-color");
+const COLOR_BUTTON = document.getElementById("change-color");
 CLEAR_BUTTON.addEventListener("click", function(){formGrid(clearGrid())});
 COLOR_BUTTON.addEventListener("click", function(){changeColor()});
 
@@ -40,7 +40,7 @@ function formGrid(param){
 }
 
 function clearGrid(){
-    let newSize = prompt("Would you like to adjust the fineness of the pen? (Min. 16, Max 100)", 16);
+    let newSize = prompt("Would you like to adjust the fineness of the pen? (Min. 16, Max. 100)", 16);
     while (parseInt(newSize) < 16 || parseInt(newSize) > 100){
         newSize = prompt("Sorry, that number is out of range. Please enter a number between 16 and 100");
     }
@@ -60,5 +60,6 @@ function changeColor(){
 }
 
 function fill(cell, color){ //Adds mouse hover event that changes the color of the cell
+    COLOR_BUTTON.style.cssText = `background-color: ${color}; color: ${color}`; //changes color of color change button
     return cell.addEventListener("mouseover", function(){cell.style.cssText = `background-color: ${color};`});
 }
